@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from "react";
-import Web3Modal from "web3modal";
+import Wenb3Modal from "web3modal";
 import { ethers } from "ethers";
 
 // INTERNAL IMPORT
@@ -16,12 +16,12 @@ export const CrowdFundingContext = React.createContext();
 export const CrowdFundingProvider = ({children}) =>
 {
     const titleData = "Crowd Funding Contract";
-    const [currentAccount, setCurrentAmount] = useState("");
+    const [currentAccount, setCurrentAccount] = useState("");
 
     const createCampaign = async (campaign) =>
     {
         const {title, description, amount, deadline} = campaign;
-        const web3modal = new Web3Modal();
+        const web3modal = new Wenb3Modal();
         const connection = await web3modal.connect();
         const provider = new ethers.providers.Web3Provider(connection);
         const signer = provider.getSigner();
@@ -35,11 +35,13 @@ export const CrowdFundingProvider = ({children}) =>
                 currentAccount,
                 title,
                 description,
-                ether.utils.parseUnits(amount, 18),
+                ethers.utils.parseUnits(amount, 18),
                 new Date(deadline).getTime()
             );
             
             await transaction.wait();
+
+            location.reload();
 
             console.log("contract call success", transaction);
         } 
@@ -53,9 +55,7 @@ export const CrowdFundingProvider = ({children}) =>
     {
         const provider = new ethers.providers.JsonRpcProvider();
         const contract = fetchContract(provider);
-
         const campaigns = await contract.getCampaigns();
-
         const parsedCampaigns = campaigns.map((campaign,i)=>
         ({
             owner: campaign.owner,
@@ -68,14 +68,13 @@ export const CrowdFundingProvider = ({children}) =>
             ),
             pId : i
         }))
-
         return parsedCampaigns;
 
     };
 
     const getUserCampaigns = async () =>
     {
-        const provider = new ethers.provider.JsonRpcProvider();
+        const provider = new ethers.providers.JsonRpcProvider();
         const contract = fetchContract(provider);
 
         const allCampaigns = await contract.getCampaigns();
@@ -89,7 +88,7 @@ export const CrowdFundingProvider = ({children}) =>
         const filteredCampaigns = allCampaigns.filter(
             (campaign)=>
             
-                campaign.owner === "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+                campaign.owner === "0x71bE63f3384f5fb98995898A86B02Fb2426c5788"
         );
 
         const userData = filteredCampaigns.map((campaign, i) => ({
@@ -111,13 +110,14 @@ export const CrowdFundingProvider = ({children}) =>
 
     const donate = async (pId, amount) =>
     {
-        const web3modal = new Web3Modal();
+        console.log("donate func");
+        const web3modal = new Wenb3Modal();
         const connection = await web3modal.connect();
-        const provider = new ethers.provider.Web3Provider(connection);
+        const provider = new ethers.providers.Web3Provider(connection);
         const signer = provider.getSigner();
         const contract = fetchContract(signer);
 
-        const campaignData = await contract.donateToCampaign(pId, {value: ethers.utils.parseEther(amount)});
+        const campaignData = await contract.donateCampaign(pId, {value: ethers.utils.parseEther(amount)});
 
         await campaignData.wait();
         location.reload();
@@ -127,7 +127,7 @@ export const CrowdFundingProvider = ({children}) =>
 
     const getDonations = async (pId) =>
     {
-        const provider = ethers.provider.JsonRpcProvider();
+        const provider = new ethers.providers.JsonRpcProvider();
         const contract = fetchContract(provider);
 
         const donations = await contract.getDonators(pId);
@@ -151,10 +151,10 @@ export const CrowdFundingProvider = ({children}) =>
     const checkIfWalletConnected = async() =>
     {
         try {
-            if(!window.etherium)
+            if(!window.ethereum)
                 return setOpenError(true), setError("Install MetaMask");
 
-            const account = await window.etherium.request({
+            const account = await window.ethereum.request({
                 method : "eth_accounts",
             });
 

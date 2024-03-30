@@ -14,19 +14,19 @@ const index = () =>
     getDonations,
   }= useContext(CrowdFundingContext);
 
-  const [allCampaign, setAllCampaign] = useState();
-  const [userCampaign, setUserCampaign] = useState();
+  const [allcampaign, setAllcampaign] = useState();
+  const [usercampaign, setUsercampaign] = useState();
 
   useEffect(()=>
   {
     const getCampaignsData = getCampaigns();
-    const userCampaignData = getUserCampaigns();
+    const userCampaignsData = getUserCampaigns();
     return async () =>
     {
       const allData = await getCampaignsData;
-      const userData = await userCampaignData;
-      setAllCampaign(allData);
-      setAllCampaign(userData);
+      const userData = await userCampaignsData;
+      setAllcampaign(allData);
+      setUsercampaign(userData);
     };
   },[]);
 
@@ -41,13 +41,13 @@ const index = () =>
       <Hero titleData ={titleData} createCampaign={createCampaign}/>
       <Card
         title="All listed Campaign"
-        allCampaigns={allCampaign}
+        allCampaign={allcampaign}
         setOpenModel={setOpenModel}
         setDonate= {setDonateCampaign}
       />
       <Card
         title="Your created Campaign"
-        allcampaign = {userCampaign}
+        allCampaign = {usercampaign}
         setOpenModel={setOpenModel}
         setDonate={setDonateCampaign}
       />
