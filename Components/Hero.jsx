@@ -42,9 +42,11 @@ const Hero = ({ titledata, createCampaign }) => {
                     <div className='flex flex-col items-center justify-between xl:flex-row'>
                         <div className='w-full max-w-xl mb-12 xl:mb-0 xl:pr-16 xl:w-7/12'>
                             <h2 className='max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-white sm:text-5xl sm:leading-none'>
-                                Crypto King <br className='hidden md:block' />
-                                Crowd Funding CK
+                                GreenTokens <br className='hidden md:block' />
                             </h2>
+                            <h3 className='max-w-lg mb-6 font-sans text-2xl font-bold tracking-tight text-white sm:text-2xl sm:leading-none'>
+                                Crowdfunding Sustainability 🌳
+                            </h3>
                             <p className='max-w-xl mb-4 text-base text-white md:text-lg'>
                                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia quos libero optio laudantium eligendi cupiditate ad quasi, culpa officiis quisquam alias tempora reprehenderit nisi, recusandae nostrum minus rerum ex eum!
                             </p>
@@ -143,7 +145,7 @@ const Hero = ({ titledata, createCampaign }) => {
                                             htmlFor='email'
                                             className='inline-block mb-1 font-medium'
                                         >
-                                            Target Amount
+                                            Deadline
                                         </label>
                                         <input
                                             onChange={(e) =>

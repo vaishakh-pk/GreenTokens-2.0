@@ -14,8 +14,8 @@ const NavBar = () => {
           <div className="flex item-center">
             <a href='/' aria-label='Company' title='Company' className = "inline-flex items-center mr-8">
               <Logo color="text-white"/>
-              <sapn className ="ml-2 text-xl font-bold tracking-wide text-white uppercase">
-                Company
+              <sapn className ="ml-2 text-xl font-bold tracking-wide text-white">
+                GreenTokens
               </sapn>
             </a>
             <ul className="flex items-center hidden space-x-8 lg:flex">
