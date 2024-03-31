@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Card = ({allCampaign, setOpenModel, setDonate, title}) => {
+const Card = ({allCampaign, setOpenModel, setDonate, title,ID}) => {
 
   const daysLeft = (deadline) => 
   {
@@ -10,7 +10,7 @@ const Card = ({allCampaign, setOpenModel, setDonate, title}) => {
   };
 
   return(
-    <div className='px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20'>
+    <div className='px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20' id={ID}>
       <p className='py-16 text-2xl font-bold leading-5'>{title}</p>
       <div className='sm:grid sm:grid-cols-1 md:grid md:grid-cols-2 lg:grid lg:grid-cols-3 gap-5'> {/* Grid container */}
         {allCampaign?.map((campaign, i) => (

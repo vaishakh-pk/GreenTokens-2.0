@@ -21,7 +21,7 @@ const Hero = ({ titledata, createCampaign }) => {
     };
 
     return (
-        <div className='relative'>
+        <div className='relative' id='heroSection'>
             <span className='coverLine'></span>
             <img
                 src='https://images.pexels.com/photos/3228766/pexels-photo-3228766.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260'
@@ -48,7 +48,9 @@ const Hero = ({ titledata, createCampaign }) => {
                                 Crowdfunding Sustainability 🌳
                             </h3>
                             <p className='max-w-xl mb-4 text-base text-white md:text-lg'>
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia quos libero optio laudantium eligendi cupiditate ad quasi, culpa officiis quisquam alias tempora reprehenderit nisi, recusandae nostrum minus rerum ex eum!
+                            At GreenTokens, we're pioneering a groundbreaking approach to crowdfunding sustainability through blockchain technology.
+                            Our mission is to drive significant environmental impact, foster a supportive community, promote financial transparency, raise awareness, and promote inclusivity. 
+
                             </p>
                             <a
                                 href='/'

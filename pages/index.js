@@ -40,12 +40,14 @@ const index = () =>
     <>
       <Hero titleData ={titleData} createCampaign={createCampaign}/>
       <Card
+        ID = "AllCampaigns"
         title="All listed Campaign"
         allCampaign={allcampaign}
         setOpenModel={setOpenModel}
         setDonate= {setDonateCampaign}
       />
       <Card
+        ID= "UserCampaigns"
         title="Your created Campaign"
         allCampaign = {usercampaign}
         setOpenModel={setOpenModel}
@@ -60,6 +62,8 @@ const index = () =>
           donateFunction ={donate}
         />
       )}
+
+      
 
     </>
   );
