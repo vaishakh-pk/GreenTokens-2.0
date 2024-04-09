@@ -12,6 +12,8 @@ contract CrowdFunding{
         uint256 amountCollected;
         address[] donators;
         uint [] donations;
+        uint reports;
+        address [] reported;
         
     }
 
@@ -31,6 +33,7 @@ contract CrowdFunding{
         campaign.target = _target;
         campaign.deadline = _deadline;
         campaign.amountCollected = 0;
+        campaign.reports = 0;
         numberOfCampaigns++;
         return numberOfCampaigns-1;
     }
@@ -50,6 +53,21 @@ contract CrowdFunding{
         {
             campaign.amountCollected = campaign.amountCollected + amount; 
         }
+    }
+
+        function reportCampaign(uint256 _id) public 
+    {
+
+        Campaign storage campaign = campaigns[_id];
+
+        campaign.reported.push(msg.sender);
+        campaign.reports ++;
+
+    }
+
+    function getReported(uint256 _id) view public returns (address[] memory,uint256)
+    {
+        return (campaigns[_id].reported, campaigns[_id].reports);
     }
 
     function getDonators(uint256 _id) view public returns (address[] memory,uint256[] memory)

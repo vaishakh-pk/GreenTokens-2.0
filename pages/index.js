@@ -12,6 +12,8 @@ const index = () =>
     donate,
     getUserCampaigns,
     getDonations,
+    getReported,
+    reportCampaign
   }= useContext(CrowdFundingContext);
 
   const [allcampaign, setAllcampaign] = useState();
@@ -60,6 +62,7 @@ const index = () =>
           getDonations = {getDonations}
           donate = {donateCampaign}
           donateFunction ={donate}
+          reportFunction={reportCampaign}
         />
       )}
 
