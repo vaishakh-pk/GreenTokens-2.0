@@ -17,9 +17,27 @@ contract CrowdFunding{
         
     }
 
+    struct News {
+        string headline;
+        string content;
+        uint256 timestamp;
+    }
+    struct Event {
+        string title;
+        string content;
+        string location;
+        uint date;
+        uint256 timestamp;
+    }
+
     mapping(uint256 => Campaign) public campaigns;
+    mapping(uint256 => News) public news;
+    mapping(uint256 => Event) public events;
 
     uint256 public numberOfCampaigns = 0;
+    uint256 public numberOfNews = 0;
+    uint256 public numberOfEvents = 0;
+    address public admin = 0x71bE63f3384f5fb98995898A86B02Fb2426c5788;
 
     function createCampaign(address _owner, string memory _title, string memory _description, uint256 _target, uint256 _deadline) 
     public returns (uint256){
@@ -87,5 +105,40 @@ contract CrowdFunding{
         }
 
         return allCampaigns;
+    }
+
+    function createNews(string memory _headline, string memory _content) public {
+        News storage latestNews = news[numberOfNews];
+        latestNews.headline = _headline;
+        latestNews.content = _content;
+        latestNews.timestamp = block.timestamp;
+        numberOfNews++;
+    }
+
+        function getAllNews() public view returns (News[] memory) {
+        News[] memory allNews = new News[](numberOfNews);
+        for (uint256 i = 0; i < numberOfNews; i++) {
+            News storage item = news[i];
+            allNews[i] = item;   
+        }
+        return allNews;
+    }
+
+    function createEvent(string memory _title, string memory _content, string memory _location, uint _deadline) public {
+        Event storage latestEvent = events[numberOfEvents];
+        latestEvent.title = _title;
+        latestEvent.content = _content;
+        latestEvent.location = _location;
+        latestEvent.date = _deadline;
+        latestEvent.timestamp = block.timestamp;
+        numberOfEvents++;
+    }
+
+    function getAllEvents() public view returns (Event[] memory) {
+        Event[] memory allEvents = new Event[](numberOfEvents);
+        for (uint256 i = 0; i < numberOfEvents; i++) {
+            allEvents[i] = events[i];   
+        }
+        return allEvents;
     }
 }

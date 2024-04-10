@@ -16,6 +16,23 @@ export const CrowdFundingContext = React.createContext();
 export const CrowdFundingProvider = ({ children }) => {
     const titleData = "Crowd Funding Contract";
     const [currentAccount, setCurrentAccount] = useState("");
+    const [admin, setAdmin] = useState("");
+
+    // Function to fetch the admin address
+    const fetchAdminAddress = async () => {
+      try {
+        const provider = new ethers.providers.JsonRpcProvider();
+        const contract = fetchContract(provider);
+        const adminAddress = await contract.admin();
+        setAdmin(adminAddress);
+      } catch (error) {
+        console.error("Error fetching admin address:", error);
+      }
+    };
+    useEffect(() => {
+        checkIfWalletConnected();
+        fetchAdminAddress(); // Fetch the admin address when the component mounts
+      }, []);
 
     const createCampaign = async (campaign) => {
         const { title, description, amount, deadline } = campaign;
@@ -187,6 +204,87 @@ const getCampaigns = async () => {
     };
 
 
+    const createNews = async (headline,description) => {
+        try {
+            if (currentAccount) {
+                const web3modal = new Wenb3Modal(); // Corrected typo
+                const connection = await web3modal.connect();
+                const provider = new ethers.providers.Web3Provider(connection);
+                const signer = provider.getSigner();
+                const contract = fetchContract(signer);
+    
+                const transaction = await contract.createNews(headline, description);
+                await transaction.wait();
+                location.reload();
+    
+                console.log("News created successfully");
+            } else {
+                throw new Error("Only admin can create news articles"); // Throw an error if user is not admin
+            }
+        } catch (error) {
+            console.error("Error creating news:", error);
+            throw error; // Re-throw the error to handle it in the component
+        }
+    };
+    
+
+    const getAllNews = async () => {
+        try {
+            const provider = new ethers.providers.JsonRpcProvider();
+            const contract = fetchContract(provider);
+            const allNews = await contract.getAllNews();
+
+            return allNews;
+        } catch (error) {
+            console.error("Error fetching news:", error);
+        }
+    };
+
+
+    const createEvent = async (title, description, location, deadline) => {
+        try {
+            if (currentAccount) {
+                const web3modal = new Wenb3Modal(); // Corrected typo
+                const connection = await web3modal.connect();
+                const provider = new ethers.providers.Web3Provider(connection);
+                const signer = provider.getSigner();
+                const contract = fetchContract(signer);
+    
+                // Convert deadline to Unix timestamp
+                const deadlineTimestamp = Date.parse(deadline) / 1000; // Convert milliseconds to seconds
+    
+                const transaction = await contract.createEvent(title, description, location, deadlineTimestamp);
+                await transaction.wait();
+    
+                // Reload the page after creating the event
+                window.location.reload();
+    
+                console.log("Event created successfully");
+            } else {
+                throw new Error("Only admin can create Events"); // Throw an error if user is not admin
+            }
+        } catch (error) {
+            console.error("Error creating Event:", error);
+            throw error; // Re-throw the error to handle it in the component
+        }
+    };
+    
+    
+    
+
+    const getAllEvents = async () => {
+        try {
+            const provider = new ethers.providers.JsonRpcProvider();
+            const contract = fetchContract(provider);
+            const allEvents = await contract.getAllEvents();
+
+            return allEvents;
+        } catch (error) {
+            console.error("Error fetching news:", error);
+        }
+    };
+
+
     // --CHECK WALLET IS CONNECTED
     const checkIfWalletConnected = async () => {
         try {
@@ -243,7 +341,12 @@ const getCampaigns = async () => {
                 getDonations,
                 connectWallet,
                 reportCampaign,
-                getReported
+                getReported,
+                createNews,
+                getAllNews,
+                createEvent,
+                getAllEvents,
+                admin
             }}
         >
             {children}

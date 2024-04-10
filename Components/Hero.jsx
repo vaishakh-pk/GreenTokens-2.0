@@ -10,6 +10,13 @@ const Hero = ({ titledata, createCampaign }) => {
         }
     );
 
+    const scrollToSection = (id) => {
+        const section = document.getElementById(id);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth' });
+        }
+      };
+
     const createNewCampaign = async (e) => {
         e.preventDefault();
         try {
@@ -53,7 +60,8 @@ const Hero = ({ titledata, createCampaign }) => {
 
                             </p>
                             <a
-                                href='/'
+                                // onClick={scrollToSection("aboutUsSection")}
+                                href='#aboutUsSection'
                                 aria-label=''
                                 className='inline-flex items-center font-semibold tracking-wider transition-colors duration-200 text-teal-accent-400 hover:text-teal-accent-700 text-gray-200'
                             >
@@ -169,7 +177,7 @@ const Hero = ({ titledata, createCampaign }) => {
                                         <button
                                             onClick={(e) => createNewCampaign(e)}
                                             type='submit'
-                                            className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus: shadow-outline focus:outline-none newColor"
+                                            className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-green-accent-500 hover:bg-deep-purple-accent-700 focus: shadow-outline focus:outline-none newColor"
                                         >
                                             Create Campaign
                                         </button>

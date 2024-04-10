@@ -1,14 +1,23 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { CrowdFundingContext } from '@/Context/CrowdFunding';
 import { Logo } from '../Components/index';
+import { useRouter } from 'next/router';
 
 const NavBar = () => {
+  const router = useRouter();
+
+  const handleNewsClick = () => {
+    router.push('/news');
+  };
+  const handleEventsClick = () => {
+    router.push('/events');
+  };
   const { currentAccount, connectWallet } = useContext(CrowdFundingContext);
-  const menuItems = ["All Campaigns", "My Campaign", "About Us"];
+  const menuItems = ["All Campaigns", "My Campaign"];
   const sectionIds = {
     "All Campaigns": "AllCampaigns",
     "My Campaign": "UserCampaigns",
-    "About Us": "aboutUsSection",
+    // "About Us": "aboutUsSection",
     "Hero" : "heroSection"
   };
 
@@ -64,6 +73,9 @@ const NavBar = () => {
                   </a>
                 </li>
               ))}
+              <li className={`font-medium tracking-wide transition-colors duration-200 hover:text-teal-accent-400 ${textColor}`} onClick={handleNewsClick}><span style={{ cursor: 'pointer' }}>News</span></li>
+              <li className={`font-medium tracking-wide transition-colors duration-200 hover:text-teal-accent-400 ${textColor}`} onClick={handleEventsClick}><span style={{ cursor: 'pointer' }}>Events</span></li>
+              <li className={`font-medium tracking-wide transition-colors duration-200 hover:text-teal-accent-400 ${textColor}`} onClick={() => scrollToSection('aboutUsSection')}><span style={{ cursor: 'pointer' }}>About Us</span></li>
             </ul>
           </div>
           {!currentAccount && (
