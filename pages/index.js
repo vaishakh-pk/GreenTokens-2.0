@@ -27,6 +27,8 @@ const index = () =>
     {
       const allData = await getCampaignsData;
       const userData = await userCampaignsData;
+      console.log(allData);
+      console.log(userData)
       setAllcampaign(allData);
       setUsercampaign(userData);
     };
