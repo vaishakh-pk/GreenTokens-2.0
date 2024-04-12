@@ -162,6 +162,8 @@ export const CrowdFundingProvider = ({ children }) => {
         const signer = provider.getSigner();
         const contract = fetchContract(signer);
 
+        
+
         const campaignData = await contract.donateCampaign(pId, { value: ethers.utils.parseEther(amount) });
 
         await campaignData.wait();
@@ -173,6 +175,8 @@ export const CrowdFundingProvider = ({ children }) => {
     const getDonations = async (pId) => {
         const provider = new ethers.providers.JsonRpcProvider();
         const contract = fetchContract(provider);
+
+        console.log(contract);
 
         const donations = await contract.getDonators(pId);
         const numberOfDonations = donations[0].length;

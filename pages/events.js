@@ -11,6 +11,11 @@ const EventsPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter(); // Access the useRouter hook for navigation
 
+  const User = "0x71bE63f3384f5fb98995898A86B02Fb2426c5788";
+  const adminUser = User.toLowerCase();
+
+  const isAdmin = (adminUser === currentAccount);
+
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -42,7 +47,7 @@ const EventsPage = () => {
         </button>
       </Link>
       <h1 className="text-3xl font-bold text-center mb-8 text-green-800">GreenEvents</h1>
-      {currentAccount && admin && (
+      {isAdmin && (
         <button
           onClick={handleAddEvents}
           className="bg-green-800 hover:bg-green-900 text-white font-bold py-2 px-4 rounded-full absolute top-4 right-4"
